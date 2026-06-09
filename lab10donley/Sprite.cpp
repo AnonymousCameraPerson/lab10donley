@@ -8,7 +8,7 @@ using namespace std;
 
 void sprite::drawSprite()
 {
-	al_draw_scaled_bitmap(image[curframe],0,0,width, height, x,y,width/10, height/10,0);
+	al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 }
 
 void sprite::updatesprite()
@@ -63,7 +63,7 @@ void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 
 	else if (y > SCREEN_H - height)
 	{
-		y = SCREEN_H -  height;
+		y = SCREEN_H - height;
 		yspeed = rand() % 2 - 6;
 		animdir *= -1;
 	}
@@ -74,16 +74,19 @@ void sprite::load_animated_sprite(int size)
 {
 	//load the animated sprite
 	char s[80];
-	maxframe=size;
-	for (int n=0; n<size; n++)
+	maxframe = size;
+	for (int n = 0; n < size; n++)
 	{
-		sprintf_s(s,"parrot%d.png",n);
+		sprintf_s(s, "Alien%d.bmp", n);
 		image[n] = al_load_bitmap(s);
 
 		al_convert_mask_to_alpha(image[n], al_map_rgb(255, 255, 255));
-	}  
-	width=al_get_bitmap_width(image[0]);
-	height=al_get_bitmap_height(image[0]);
+	}
+	width = al_get_bitmap_width(image[0]);
+	height = al_get_bitmap_height(image[0]);
+	random_red = 255;
+	random_green = 255;
+	random_blue = 255;
 	curframe = 0;
 	framedelay = 5;
 	framecount = 0;
@@ -93,9 +96,22 @@ void sprite::load_animated_sprite(int size)
 
 sprite::~sprite()
 {
-	for(int i = 0; i < maxframe; i++)
+	for (int i = 0; i < maxframe; i++)
 		al_destroy_bitmap(image[i]);
 }
 
-
-
+void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT) {
+	for (int i = 0; i < cSize; i++) {
+		if (i != me) {
+			if (x >= Sprites[i].getX() - width && x <= Sprites[i].getX() + width) {
+				if (y >= Sprites[i].getY() - height && y <= Sprites[i].getY() + height) {
+					random_red = rand() % 255;
+					random_green = rand() % 255;
+					random_blue = rand() % 255;
+					x = rand() % WIDTH;
+					y = rand() % HEIGHT;
+				}
+			}
+		}
+	}
+}

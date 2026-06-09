@@ -31,37 +31,31 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot0.png">
+    <Image Include="..\x64\Debug\Alien5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot1.png">
+    <Image Include="..\x64\Debug\Alien6.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot2.png">
+    <Image Include="..\x64\Debug\Alien7.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot3.png">
+    <Image Include="..\x64\Debug\Alien8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot4.png">
+    <Image Include="..\x64\Debug\Alien0.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot5.png">
+    <Image Include="..\x64\Debug\Alien1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot6.png">
+    <Image Include="..\x64\Debug\Alien2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot7.png">
+    <Image Include="..\x64\Debug\Alien3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot8.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot9.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\OneDrive\Pictures\parrot10.png">
+    <Image Include="..\x64\Debug\Alien4.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -8,6 +8,7 @@ public:
 	void drawSprite();
 	int getX() { return x; }
 	int getY() { return y; }
+	void Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT);
 
 
 private:
@@ -18,5 +19,8 @@ private:
 	int xcount, ycount;
 	int curframe, maxframe, animdir;
 	int framecount, framedelay;
-	ALLEGRO_BITMAP* image[11];
+	ALLEGRO_BITMAP* image[9];
+	int random_red;
+	int random_green;
+	int random_blue;
 };

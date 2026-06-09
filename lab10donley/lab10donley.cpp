@@ -18,7 +18,7 @@ int main(void)
 	//allegro variable
 	ALLEGRO_DISPLAY* display = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
-	sprite alien;
+	sprite alien[10];
 	ALLEGRO_TIMER* timer = NULL;
 
 
@@ -41,8 +41,8 @@ int main(void)
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_set_target_bitmap(al_get_backbuffer(display));
 	al_start_timer(timer);
-
-	alien.load_animated_sprite(11);
+	for (int i=0; i<10; i++)
+		alien[i].load_animated_sprite(9);
 
 	while (!done)
 	{
@@ -51,7 +51,10 @@ int main(void)
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
-			alien.bouncesprite(width, height);
+			for (int i = 0; i < 10; i++)
+				alien[i].bouncesprite(width, height);
+			for (int i = 0; i < 10; i++)
+				alien[i].Collision(alien, 5, i, width, height);
 			redraw = true;
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -83,8 +86,11 @@ int main(void)
 
 
 			redraw = false;
-			alien.updatesprite();
-			alien.drawSprite();
+			for (int i = 0; i < 10; i++)
+				alien[i].updatesprite();
+			for (int i = 0; i < 10; i++)
+				alien[i].drawSprite();
+			
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 		}
