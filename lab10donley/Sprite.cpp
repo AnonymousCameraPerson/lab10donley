@@ -101,16 +101,33 @@ sprite::~sprite()
 }
 
 void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT) {
+	//if (live)
+	//{
+	//	for (int j = 0; j < cSize; j++)
+	//	{
+	//		if (BadGuys[j].getLive())
+	//		{
+	//			if (x > (BadGuys[j].getX() - BadGuys[j].getBoundX()) &&
+	//				x < (BadGuys[j].getX() + BadGuys[j].getBoundX()) &&
+	//				y >(BadGuys[j].getY() - BadGuys[j].getBoundY()) &&
+	//				y < (BadGuys[j].getY() + BadGuys[j].getBoundY()))
+	//			{
+	//				live = false;
+	//				BadGuys[j].setLive(false);
+	//			}
+	//		}
+	//	}
+	//}
 	for (int i = 0; i < cSize; i++) {
 		if (i != me) {
-			if (x >= Sprites[i].getX() - width && x <= Sprites[i].getX() + width) {
-				if (y >= Sprites[i].getY() - height && y <= Sprites[i].getY() + height) {
+			if ((x >= Sprites[i].getX() - width) &&( x <= Sprites[i].getX() + width) && 
+				(y >= Sprites[i].getY() - height) && (y <= Sprites[i].getY() + height)) {
 					random_red = rand() % 255;
 					random_green = rand() % 255;
 					random_blue = rand() % 255;
 					x = rand() % WIDTH;
 					y = rand() % HEIGHT;
-				}
+				
 			}
 		}
 	}
