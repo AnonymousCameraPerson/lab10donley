@@ -5,7 +5,7 @@ public:
 	void updatesprite();
 	void bouncesprite(int SCREEN_W, int SCREEN_H);
 	void load_animated_sprite(int size);
-	void drawSprite(int mesa);
+	void drawSprite(int seconds);
 	int getX() { return x; }
 	int getY() { return y; }
 	void Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT);
@@ -13,7 +13,9 @@ public:
 
 private:
 	int x, y;
+	float permWidth, permHeight;
 	int width, height;
+	float angle;
 	int xspeed, yspeed;
 	int xdelay, ydelay;
 	int xcount, ycount;

@@ -46,6 +46,10 @@ int main(void)
 
 	while (!done)
 	{
+		
+		int64_t seconds = al_get_timer_count(timer);
+		double speed = al_get_timer_speed(timer);
+		double seconds_elapsed = seconds * speed;
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
@@ -90,7 +94,7 @@ int main(void)
 			for (int i = 0; i < 5; i++)
 				alien[i].updatesprite();
 			for (int i = 0; i < 5; i++)
-				alien[i].drawSprite(i);
+				alien[i].drawSprite(seconds_elapsed);
 			
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0, 0, 0));
