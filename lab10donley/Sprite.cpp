@@ -17,7 +17,7 @@ void sprite::drawSprite(int seconds)
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
 		else if (random_specialty == 1) {
-			if (seconds < 10)
+			//if (seconds < 10)
 				al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
 		}
 		else if (random_specialty == 2) {
@@ -29,6 +29,10 @@ void sprite::drawSprite(int seconds)
 		if (random_specialty == 2) {
 			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
 		}
+		//else if (random_specialty == 1) {
+		//	//if (seconds < 10)
+		//	al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
+		//}
 		else {
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
@@ -39,6 +43,7 @@ void sprite::drawSprite(int seconds)
 void sprite::updatesprite()
 {
 	if (dontmove) {
+		//dontmove = false;
 		return;
 	}
 	//update x position
@@ -68,6 +73,7 @@ void sprite::updatesprite()
 void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 {
 	if (dontmove) {
+		//dontmove = false;
 		return;
 	}
 	//simple screen bouncing behavior
