@@ -8,23 +8,16 @@ using namespace std;
 
 void sprite::drawSprite(int mesa)
 {
-	if (isColliding) {
+	if (isColliding && random_specialty == 0) {
 		random_red = rand() % 255;
 		random_green = rand() % 255;
 		random_blue = rand() % 255;
+		al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 	}
-	//else {
-	//	random_red = 255;
-	//	random_green = 0;
-	//	random_blue = 0;
-	//}
-	al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
-	//}
-	//else {
-	//	al_draw_bitmap(image[curframe], x, y, 0);
-	//}
-	//al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red[curframe], random_green[curframe], random_blue[curframe]), x, y, 0);
-	
+	else if (random_specialty == 1 && isColliding) {
+		al_draw_scaled_bitmap(image[curframe], 0,0, width, height, x, y, width/2, height/2,  0);
+	}
+
 }
 
 void sprite::updatesprite()
@@ -97,6 +90,7 @@ void sprite::load_animated_sprite(int size)
 	maxframe = size;
 	for (int n = 0; n < size; n++)
 	{
+		
 		sprintf_s(s, "Alien%d.bmp", n);
 		image[n] = al_load_bitmap(s);
 		//isColliding[n] = false;
@@ -112,6 +106,7 @@ void sprite::load_animated_sprite(int size)
 	random_green = 255;
 	isColliding = false;
 	random_blue = 255;
+	random_specialty = rand() % 3;
 
 }
 
@@ -127,11 +122,24 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 		if (i != me) {
 			if ((x >= Sprites[i].getX() - width/2) &&( x <= Sprites[i].getX() + width/2) && 
 				(y >= Sprites[i].getY() - height/2) && (y <= Sprites[i].getY() + height/2)) {
+
 					isColliding = true;
 
-					x = rand() % WIDTH;
-					y = rand() % HEIGHT;
-					break;
+					if (random_specialty == 0) {
+						x = rand() % WIDTH;
+						y = rand() % HEIGHT;
+						break;
+					}
+					else if (random_specialty == 1) {
+						scaledInHalf = true;
+						x = rand() % WIDTH;
+						y = rand() % HEIGHT;
+						break;
+					}
+					else if (random_specialty == 2) {
+
+					}
+					
 			}
 			else {
 				isColliding = false;

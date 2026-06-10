@@ -25,4 +25,6 @@ private:
 	int random_blue;
 	int spriteMe;
 	bool isColliding;
+	bool scaledInHalf;
+	int random_specialty;
 };
