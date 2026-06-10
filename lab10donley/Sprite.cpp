@@ -6,9 +6,25 @@
 #include <iostream>
 using namespace std;
 
-void sprite::drawSprite()
+void sprite::drawSprite(int mesa)
 {
+	if (isColliding) {
+		random_red = rand() % 255;
+		random_green = rand() % 255;
+		random_blue = rand() % 255;
+	}
+	//else {
+	//	random_red = 255;
+	//	random_green = 0;
+	//	random_blue = 0;
+	//}
 	al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
+	//}
+	//else {
+	//	al_draw_bitmap(image[curframe], x, y, 0);
+	//}
+	//al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red[curframe], random_green[curframe], random_blue[curframe]), x, y, 0);
+	
 }
 
 void sprite::updatesprite()
@@ -44,6 +60,7 @@ void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 	{
 		x = 0;
 		xspeed = rand() % 2 + 4;
+		//xspeed = 1;
 		animdir *= -1;
 	}
 
@@ -51,6 +68,7 @@ void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 	{
 		x = SCREEN_W - width;
 		xspeed = rand() % 2 - 6;
+		//xspeed = 1;
 		animdir *= -1;
 	}
 
@@ -58,6 +76,7 @@ void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 	{
 		y = 0;
 		yspeed = rand() % 2 + 4;
+		//yspeed = 1;
 		animdir *= -1;
 	}
 
@@ -65,6 +84,7 @@ void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 	{
 		y = SCREEN_H - height;
 		yspeed = rand() % 2 - 6;
+		//yspeed = 1;
 		animdir *= -1;
 	}
 
@@ -79,18 +99,19 @@ void sprite::load_animated_sprite(int size)
 	{
 		sprintf_s(s, "Alien%d.bmp", n);
 		image[n] = al_load_bitmap(s);
-
+		//isColliding[n] = false;
 		al_convert_mask_to_alpha(image[n], al_map_rgb(255, 255, 255));
 	}
 	width = al_get_bitmap_width(image[0]);
 	height = al_get_bitmap_height(image[0]);
-	random_red = 255;
-	random_green = 255;
-	random_blue = 255;
+	
 	curframe = 0;
 	framedelay = 5;
 	framecount = 0;
-
+	random_red = 255;
+	random_green = 255;
+	isColliding = false;
+	random_blue = 255;
 
 }
 
@@ -101,34 +122,24 @@ sprite::~sprite()
 }
 
 void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT) {
-	//if (live)
-	//{
-	//	for (int j = 0; j < cSize; j++)
-	//	{
-	//		if (BadGuys[j].getLive())
-	//		{
-	//			if (x > (BadGuys[j].getX() - BadGuys[j].getBoundX()) &&
-	//				x < (BadGuys[j].getX() + BadGuys[j].getBoundX()) &&
-	//				y >(BadGuys[j].getY() - BadGuys[j].getBoundY()) &&
-	//				y < (BadGuys[j].getY() + BadGuys[j].getBoundY()))
-	//			{
-	//				live = false;
-	//				BadGuys[j].setLive(false);
-	//			}
-	//		}
-	//	}
-	//}
+
 	for (int i = 0; i < cSize; i++) {
 		if (i != me) {
-			if ((x >= Sprites[i].getX() - width) &&( x <= Sprites[i].getX() + width) && 
-				(y >= Sprites[i].getY() - height) && (y <= Sprites[i].getY() + height)) {
-					random_red = rand() % 255;
-					random_green = rand() % 255;
-					random_blue = rand() % 255;
+			if ((x >= Sprites[i].getX() - width/2) &&( x <= Sprites[i].getX() + width/2) && 
+				(y >= Sprites[i].getY() - height/2) && (y <= Sprites[i].getY() + height/2)) {
+					isColliding = true;
+
 					x = rand() % WIDTH;
 					y = rand() % HEIGHT;
-				
+					break;
 			}
+			else {
+				isColliding = false;
+				//random_red = 255;
+				//random_green = 255;
+				//random_blue = 255;
+			}
+
 		}
 	}
 }

@@ -5,7 +5,7 @@ public:
 	void updatesprite();
 	void bouncesprite(int SCREEN_W, int SCREEN_H);
 	void load_animated_sprite(int size);
-	void drawSprite();
+	void drawSprite(int mesa);
 	int getX() { return x; }
 	int getY() { return y; }
 	void Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT);
@@ -23,4 +23,6 @@ private:
 	int random_red;
 	int random_green;
 	int random_blue;
+	int spriteMe;
+	bool isColliding;
 };
