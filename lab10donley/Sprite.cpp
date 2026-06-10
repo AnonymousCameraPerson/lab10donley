@@ -8,6 +8,7 @@ using namespace std;
 
 void sprite::drawSprite(int seconds)
 {
+	
 	if (isColliding) {
 		if (random_specialty == 0) {
 			random_red = rand() % 255;
@@ -19,15 +20,27 @@ void sprite::drawSprite(int seconds)
 			if (seconds < 10)
 				al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
 		}
+		else if (random_specialty == 2) {
+			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
+		}
+		
 	}
 	else {
-		al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
+		if (random_specialty == 2) {
+			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
+		}
+		else {
+			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
+		}
 	}
 
 }
 
 void sprite::updatesprite()
 {
+	if (dontmove) {
+		return;
+	}
 	//update x position
 	if (++xcount > xdelay)
 	{
@@ -54,6 +67,9 @@ void sprite::updatesprite()
 
 void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 {
+	if (dontmove) {
+		return;
+	}
 	//simple screen bouncing behavior
 	if (x < 0)
 	{
@@ -112,9 +128,10 @@ void sprite::load_animated_sprite(int size)
 	random_red = 255;
 	random_green = 255;
 	isColliding = false;
+	dontmove = false;
 	random_blue = 255;
 	//random_specialty = rand() % 3;
-	random_specialty = rand() % 2;
+	random_specialty = rand() % 4;
 	angle = 0;
 }
 
@@ -126,7 +143,9 @@ sprite::~sprite()
 
 void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT) {
 	
-
+	if (random_specialty == 2) {
+		angle += .05;
+	}
 	for (int i = 0; i < cSize; i++) {
 		if (i != me) {
 			if ((x >= Sprites[i].getX() - width/2) &&( x <= Sprites[i].getX() + width/2) && 
@@ -135,13 +154,12 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 					isColliding = true;
 
 					if (random_specialty == 0) {
-						isColliding = true;
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
 						break;
 					}
 					else if (random_specialty == 1) {
-						isColliding = true;
+
 						scaledInHalf = true;
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
@@ -149,15 +167,15 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						permHeight /= 2;
 						break;
 					}
-					//else if (random_specialty == 2) {
-					//		angle += 0.5;
-					//		break;
-					//}
-					//else if (random_specialty == 3) {
-					//	x = x;
-					//	y = y;
-					//	break;
-					//}
+					else if (random_specialty == 2) {
+						x = rand() % WIDTH;
+						y = rand() % HEIGHT;
+						break;
+					}
+					else if (random_specialty == 3) {
+						dontmove = true;
+						break;
+					}
 			}
 			else {
 				isColliding = false;

@@ -28,5 +28,6 @@ private:
 	int spriteMe;
 	bool isColliding;
 	bool scaledInHalf;
+	bool dontmove;
 	int random_specialty;
 };
