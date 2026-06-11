@@ -139,6 +139,7 @@ void sprite::load_animated_sprite(int size)
 	//random_specialty = rand() % 3;
 	random_specialty = rand() % 4;
 	angle = 0;
+
 }
 
 sprite::~sprite()
@@ -147,7 +148,7 @@ sprite::~sprite()
 		al_destroy_bitmap(image[i]);
 }
 
-void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT) {
+void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGHT, int seconds_elapsed) {
 	
 	if (random_specialty == 2) {
 		angle += .05;
@@ -165,8 +166,17 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						break;
 					}
 					else if (random_specialty == 1) {
-
-						scaledInHalf = true;
+						if (seconds_elapsed < 10) {
+							scaledInHalf = true;
+						}
+						else if (seconds_elapsed == 10) {
+							scaledInHalf = false;
+							seconds_elapsed = 0;
+						}
+						else {
+							scaledInHalf = false;
+							seconds_elapsed = 0;
+						}
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
 						permWidth /= 2;
@@ -179,7 +189,16 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						break;
 					}
 					else if (random_specialty == 3) {
-						dontmove = true;
+
+						if (seconds_elapsed < 5) {
+							cout << "Seconds Elapsed: " << seconds_elapsed;
+							dontmove = true;
+						}
+						else {
+							dontmove = false;
+							seconds_elapsed = 0;
+						}
+						
 						break;
 					}
 			}
