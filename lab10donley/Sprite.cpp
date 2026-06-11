@@ -8,6 +8,9 @@ using namespace std;
 
 void sprite::drawSprite(int seconds)
 {
+	if (random_specialty == 3) {
+		al_draw_bitmap(image[curframe], x, y, 0);
+	}
 	
 	if (isColliding) {
 		if (random_specialty == 0) {
@@ -16,12 +19,12 @@ void sprite::drawSprite(int seconds)
 			random_blue = rand() % 255;
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
-		else if (random_specialty == 1) {
-			//if (seconds < 10)
-				al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
-		}
+		
 		else if (random_specialty == 2) {
 			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
+		}
+		else if (random_specialty == 1) {
+			al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
 		}
 		
 		
@@ -30,17 +33,16 @@ void sprite::drawSprite(int seconds)
 		if (random_specialty == 2) {
 			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
 		}
-		//else if (random_specialty == 1) {
-		//	//if (seconds < 10)
-		//	al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
-		//}
+		else if (random_specialty == 1) {
+			al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
+		}
 		else {
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
+
 	}
-	if (random_specialty == 3) {
-		al_draw_bitmap(image[curframe], x, y, 0);
-	}
+	
+	
 
 }
 
@@ -173,22 +175,10 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						break;
 					}
 					else if (random_specialty == 1) {
-						if (secs < 3) {
-							scaledInHalf = true;
-							//secs++;
-						}
-						else if (secs == 3) {
-							scaledInHalf = false;
-							//secs = 0;
-						}
-						else {
-							scaledInHalf = false;
-							//secs = 0;
-						}
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
-						permWidth /= 2;
-						permHeight /= 2;
+						permWidth /=2;
+						permHeight /=2;
 						break;
 					}
 					else if (random_specialty == 2) {
@@ -205,7 +195,19 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 			else {
 				isColliding = false;
 
-				if (random_specialty == 5) {
+				if (random_specialty == 1) {
+					if (seconds_elapsed - secs < 3) {
+						permWidth = permWidth;
+						permHeight = permHeight;
+					}
+					else if (seconds_elapsed - secs == 3){
+						permWidth = width;
+						permHeight = height;
+						break;
+					}
+				}
+
+				else if (random_specialty == 3) {
 					if (seconds_elapsed - secs < 5) {
 						dontmove = true;
 					}
