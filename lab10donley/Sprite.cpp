@@ -13,45 +13,54 @@ void sprite::drawSprite(int seconds)
 	}
 	
 	if (isColliding) {
+
 		if (random_specialty == 0) {
+			//randomly change color
 			random_red = rand() % 255;
 			random_green = rand() % 255;
 			random_blue = rand() % 255;
+
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
 		
 		else if (random_specialty == 2) {
+			//rotate alien
 			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
 		}
+
 		else if (random_specialty == 1) {
+			//shrink alien
 			al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
 		}
-		
 		
 	}
+	//if not colliding
 	else {
+
 		if (random_specialty == 2) {
+			//rotate alien
 			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
 		}
+
 		else if (random_specialty == 1) {
+			//draw alien shrunk or normal size depending on permWidth and permHeight
 			al_draw_scaled_bitmap(image[curframe], 0, 0, width, height, x, y, permWidth, permHeight, 0);
 		}
+
 		else {
+			//change back to original color
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
-
 	}
-	
-	
-
 }
 
 void sprite::updatesprite()
 {
 	if (dontmove) {
-		//dontmove = false;
+		//don't move
 		return;
 	}
+
 	//update x position
 	if (++xcount > xdelay)
 	{
@@ -79,9 +88,10 @@ void sprite::updatesprite()
 void sprite::bouncesprite(int SCREEN_W, int SCREEN_H)
 {
 	if (dontmove) {
-		//dontmove = false;
+		//dont move
 		return;
 	}
+
 	//simple screen bouncing behavior
 	if (x < 0)
 	{
@@ -142,11 +152,10 @@ void sprite::load_animated_sprite(int size)
 	isColliding = false;
 	dontmove = false;
 	random_blue = 255;
-	//random_specialty = rand() % 3;
 	random_specialty = rand() %4;
 	angle = 0;
 	secs = 0;
-	//ALLEGRO_TIMER* timer = NULL;
+
 
 
 }
@@ -170,11 +179,13 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 					isColliding = true;
 
 					if (random_specialty == 0) {
+						//transport to random location
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
 						break;
 					}
 					else if (random_specialty == 1) {
+						//transport to random location and shrink
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
 						permWidth /=2;
@@ -182,25 +193,32 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						break;
 					}
 					else if (random_specialty == 2) {
+						//transport to random location
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
 						break;
 					}
 					else if (random_specialty == 3) {
+						//freeze
 						secs = seconds_elapsed;
 						dontmove = true;
 						break;
 					}
 			}
+
 			else {
+
 				isColliding = false;
 
 				if (random_specialty == 1) {
 					if (seconds_elapsed - secs < 10) {
+						//dimensions stay the same
 						permWidth = permWidth;
 						permHeight = permHeight;
 					}
+
 					else if (seconds_elapsed - secs == 10){
+						//revert back to original width and height
 						permWidth = width;
 						permHeight = height;
 						break;
@@ -209,9 +227,11 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 
 				else if (random_specialty == 3) {
 					if (seconds_elapsed - secs < 5) {
+						//continue to not move
 						dontmove = true;
 					}
 					else if (seconds_elapsed - secs == 5) {
+						//time is up; move now
 						dontmove = false;
 						break;
 					}
