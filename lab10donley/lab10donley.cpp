@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include <iostream>
 using namespace std;
+//Lucia Donley
 
 int main(void)
 {
