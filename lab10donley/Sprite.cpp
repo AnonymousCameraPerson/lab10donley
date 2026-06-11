@@ -24,6 +24,7 @@ void sprite::drawSprite(int seconds)
 			al_draw_rotated_bitmap(image[curframe], width / 2, height / 2, x, y, angle, 0);
 		}
 		
+		
 	}
 	else {
 		if (random_specialty == 2) {
@@ -36,6 +37,9 @@ void sprite::drawSprite(int seconds)
 		else {
 			al_draw_tinted_bitmap(image[curframe], al_map_rgb(random_red, random_green, random_blue), x, y, 0);
 		}
+	}
+	if (random_specialty == 3) {
+		al_draw_bitmap(image[curframe], x, y, 0);
 	}
 
 }
@@ -137,8 +141,11 @@ void sprite::load_animated_sprite(int size)
 	dontmove = false;
 	random_blue = 255;
 	//random_specialty = rand() % 3;
-	random_specialty = rand() % 4;
+	random_specialty = rand() %4;
 	angle = 0;
+	secs = 0;
+	//ALLEGRO_TIMER* timer = NULL;
+
 
 }
 
@@ -166,16 +173,17 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						break;
 					}
 					else if (random_specialty == 1) {
-						if (seconds_elapsed < 10) {
+						if (secs < 3) {
 							scaledInHalf = true;
+							//secs++;
 						}
-						else if (seconds_elapsed == 10) {
+						else if (secs == 3) {
 							scaledInHalf = false;
-							seconds_elapsed = 0;
+							//secs = 0;
 						}
 						else {
 							scaledInHalf = false;
-							seconds_elapsed = 0;
+							//secs = 0;
 						}
 						x = rand() % WIDTH;
 						y = rand() % HEIGHT;
@@ -189,24 +197,23 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 						break;
 					}
 					else if (random_specialty == 3) {
-
-						if (seconds_elapsed < 5) {
-							cout << "Seconds Elapsed: " << seconds_elapsed;
-							dontmove = true;
-						}
-						else {
-							dontmove = false;
-							seconds_elapsed = 0;
-						}
-						
+						secs = seconds_elapsed;
+						dontmove = true;
 						break;
 					}
 			}
 			else {
 				isColliding = false;
-				//random_red = 255;
-				//random_green = 255;
-				//random_blue = 255;
+
+				if (random_specialty == 5) {
+					if (seconds_elapsed - secs < 5) {
+						dontmove = true;
+					}
+					else if (seconds_elapsed - secs == 5) {
+						dontmove = false;
+						break;
+					}
+				}
 			}
 
 		}

@@ -27,6 +27,7 @@ private:
 	int random_blue;
 	int spriteMe;
 	bool isColliding;
+	int secs;
 	bool scaledInHalf;
 	bool dontmove;
 	int random_specialty;

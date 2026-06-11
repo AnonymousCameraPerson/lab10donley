@@ -50,7 +50,7 @@ int main(void)
 		int64_t seconds = al_get_timer_count(timer);
 		double speed = al_get_timer_speed(timer);
 		double seconds_elapsed = seconds * speed;
-
+		//double seconds_elapsed = 0;
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
