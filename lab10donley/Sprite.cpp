@@ -196,11 +196,11 @@ void sprite::Collision(sprite Sprites[], int cSize, int me, int WIDTH, int HEIGH
 				isColliding = false;
 
 				if (random_specialty == 1) {
-					if (seconds_elapsed - secs < 3) {
+					if (seconds_elapsed - secs < 10) {
 						permWidth = permWidth;
 						permHeight = permHeight;
 					}
-					else if (seconds_elapsed - secs == 3){
+					else if (seconds_elapsed - secs == 10){
 						permWidth = width;
 						permHeight = height;
 						break;
